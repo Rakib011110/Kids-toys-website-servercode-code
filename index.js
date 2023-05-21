@@ -6,8 +6,15 @@ require('dotenv').config()
 const cors = require("cors")
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
-//  midleware 
+//  midleware  
+const corsConfig = {
+    origin: '',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
 app.use(cors())
+app.options("", cors(corsConfig))
 app.use(express.json())
 
 
@@ -31,7 +38,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
         const toysCollections = client.db('kiddstoyDB').collection("toys")
 
@@ -88,15 +95,34 @@ async function run() {
         app.get('/addtoys/:id', async (req, res) => {
             const id = req.params.id
             const query = { _id: new ObjectId(id) }
-            const result = await addToysCollection.find(query).toArray()
+            const result = await addToysCollection.findOne(query)
             res.send(result)
         })
+
+
+        // app.get('/addtoys/email/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const query = { email: email };
+
+        //     const result = await addToysCollection.find(query).toArray();
+
+        //     res.send(result);
+        // }); 
+
+
         app.get('/addtoys/email/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
-            const result = await addToysCollection.find(query).toArray();
+
+            const sortOrder = req.query.sortOrder || "asc";
+
+            const sort = { price: sortOrder === "asc" ? 1 : -1 };
+
+            const result = await addToysCollection.find(query).sort(sort).toArray();
+
             res.send(result);
         });
+
         // ------------
 
 
