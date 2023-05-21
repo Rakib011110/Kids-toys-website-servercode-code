@@ -141,12 +141,7 @@ async function run() {
 
 
 
-        // app.get('/category/:id', async (req, res) => {
-        //     const id = req.params.id
-        //     const query = { _id: new ObjectId(id) }
-        //     const result = await toysCategoriesCollection.find(query).toArray()
-        //     res.send(result)
-        // })
+
 
         // app.get("/toyproduct", async (req, res) => {
 
