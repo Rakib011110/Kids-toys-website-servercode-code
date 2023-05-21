@@ -39,7 +39,6 @@ async function run() {
         const addToysCollection = client.db("addToyDb").collection("addtoys")
 
 
-        // const toysProductsCollection = client.db('kiddstoysUserDB').collection("toyproduct")
 
 
 
