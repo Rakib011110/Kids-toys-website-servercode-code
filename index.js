@@ -143,11 +143,6 @@ async function run() {
 
 
 
-        // app.get("/toyproduct", async (req, res) => {
-
-        //     const data = await toysProductsCollection.find().toArray()
-        //     res.send(data)
-        // })
 
 
         // app.get('/toyproduct/:id', async (req, res) => {
